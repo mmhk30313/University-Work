@@ -19,13 +19,14 @@ function showData(data){
     
     
     const row = document.createElement('div');
-    row.className = "row"
+    row.className = "row py-4"
+
     data.forEach(d => {
         const div = document.createElement('div')
-        div.className = 'col-lg-3 col-md-4 col-xs-6 mb-2';
-        div.innerHTML = `<a href="#${d.name}" class='card bg-light rounded text-decoration-none'>
-        <p style="color: white;">Device 1</p>
-        <img style="" class="img-fluid w-100 mx-auto" src="${d.img}" alt=""/>
+        div.className = 'col-lg-4 col-md-6 col-xs-6 my-3';
+        div.innerHTML = `<a href="#${d.name}" class='card bg-white text-center p-2 bg-light rounded text-decoration-none text-dark shadow'>
+            <h4>${d.name}</h4>
+            <img style="height: 200px" class="img-fluid w-100 mx-auto" src="${d.img}" alt=""/>
         </a>`;
         row.appendChild(div);
     });
