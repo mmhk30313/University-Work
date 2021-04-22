@@ -28,7 +28,7 @@ app.get("/", (req, res)=>{
         {
             id: 2,
             name: "Laptop",
-            img: "https://www.kindpng.com/picc/m/193-1936242_high-resolution-laptop-png-transparent-png.png",
+            img: "https://www.pngkey.com/png/full/298-2987277_lenovo-ideapad-320-15ikbn-hp-laptop-320-ideapad.png",
             inventor: "The laptop was invented by Adam Osborne in 1981. It was called ''Osborne 1'' and cost $1,795. It came bundled with $1,500 worth of programmes.",
             des: "Early laptop displays were so primitive that PC Magazine in 1986 published an article discussing them with the headline 'Is It On Yet?'. It said of the accompanying montage of nine portable computers, 'Pictured at the right are two screens and seven elongated smudges'. The article stated that 'LCD screens still look to many observers like Etch-a-Sketch toys, or gray chalk on a dirty blackboard', and predicted that until displays improved, 'laptops will continue to be a niche rather than a mainstream direction'. As technology improved during the 1990s, the usefulness and popularity of laptops increased. "
         },
