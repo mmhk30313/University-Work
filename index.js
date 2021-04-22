@@ -56,7 +56,7 @@ app.get("/", (req, res)=>{
         {
             id: 6,
             name: "Refrigerator",
-            img: "https://lh3.googleusercontent.com/proxy/FDOU-NVGp18SpsWwBAljK5DUSOByHG6de_hEq71eq4ildms6pEkiEDEhrueIJaaSbLVgzbLddsexozhHCWksxC3VfuPbS-UF66Yvz8xA1P78PRLXd4VeMj-XlEI",
+            img: "https://purepng.com/public/uploads/large/purepng.com-refrigeratorrefrigeratorfridgeiceboxrefrigeratoryfreezer-17015283688270hzmo.png",
             inventor: " Scottish professor William Cullen designed a small refrigerating machine in 1755",
             des: "A refrigerator maintains a temperature a few degrees above the freezing point of water. Optimum temperature range for perishable food storage is 3 to 5 °C (37 to 41 °F).[1] A similar device that maintains a temperature below the freezing point of water is called a freezer. The refrigerator replaced the icebox, which had been a common household appliance for almost a century and a half."
         }

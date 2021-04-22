@@ -1,0 +1,15 @@
+body::-webkit-scrollbar, .scroll-off::-webkit-scrollbar {
+    display: none;
+}
+
+.floating{
+    /*     transition: all 2s; */
+    animation: float 1s ease-in-out infinite;
+}
+    /* .info h4{
+    } */
+@keyframes float{
+    50%{
+        transform: scale(1.09);
+    }
+}
