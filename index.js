@@ -8,7 +8,8 @@ const DB_PASSWORD = process.env.DB_PASSWORD;
 // console.log(DB_NAME);
 const ObjectId = require('mongodb').ObjectId;
 const MongoClient = require('mongodb').MongoClient;
-const uri = `mongodb+srv://Practice_Data:${DB_PASSWORD}@cluster0.fp4ts.mongodb.net/${DB_USER}?retryWrites=true&w=majority`;
+// const uri = `mongodb+srv://Practice_Data:${DB_PASSWORD}@cluster0.fp4ts.mongodb.net/${DB_USER}?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@cluster0.fp4ts.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`;
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
@@ -66,9 +67,122 @@ app.get("/", (req, res)=>{
 
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
-    const collection = client.db(DB_NAME).collection("work1_data");
-    console.log("Mongo Connected")
+  const projectCollection = client.db(DB_NAME).collection("all_projects");
+  const adminCollection = client.db(DB_NAME).collection("admins");
+  const blogCollection = client.db(DB_NAME).collection("blogs");
+  const clientCollection = client.db(DB_NAME).collection("client_reviews");
   // perform actions on the collection object
+  console.log("Mongo connect");
+
+  app.get("/client-reviews",(req, res) =>{
+    //   console.log(res)
+      clientCollection.find({})
+      .toArray((err, documents) =>{
+        //   console.log(documents);
+          res.send(documents);
+      })
+  })
+
+  app.post("/add-review", (req, res) =>{
+      const review = req.body;
+      clientCollection.insertOne(review)
+      .then(data => res.send(data.ops[0]))
+      .catch( err => console.log(err))
+  })
+
+  app.get('/delete-review/:id', (req, res) =>{
+      const id = req.params.id;
+      clientCollection.deleteOne({_id: ObjectId(id)})
+      .then(result => res.send(result));
+  })
+  
+  app.get('/all-blogs', (req, res)=>{
+      blogCollection.find({})
+      .toArray((err, documents) => {
+        // console.log(documents)
+        res.send(documents);
+      })
+  })
+
+  app.post('/add-blog', (req, res) =>{
+      const blog = req.body;
+      blogCollection.insertOne({blog})
+      .then(data => res.send(data.ops[0]))
+      .catch(err => console.log(err));
+  })
+  app.get('/delete-blog/:id', (req, res) =>{
+      const id = req.params.id;
+      blogCollection.deleteOne({_id: ObjectId(id)})
+      .then( result => {
+        //   console.log(result);
+          res.send(result);
+      })
+  })
+  app.get("/admins", (req, res) =>{
+      adminCollection.find({})
+      .toArray((err, documents) =>{
+          res.send(documents);
+      })
+  })
+  app.get("/admin-email/:email", (req, res)=>{
+      const email = req.params.email;
+      console.log(email);
+      adminCollection.findOne({email})
+      .then(data => {
+        //   console.log(data);
+          if(!data){
+            adminCollection.insertOne({email})
+            .then(data => res.send(data.ops[0]))
+            .catch(err => console.log(err));
+          }
+          else{
+            //   console.log(false);
+              res.send(false);
+          }
+      })
+    //   adminCollection.insertOne({email})
+    //   .then(data => res.send(data.ops[0]))
+    //   .catch(err => console.log(err));
+  })
+  app.post('/add-project', (req, res) =>{
+      const project = req.body;
+    //   console.log(project);
+      projectCollection.insertOne(project)
+      .then(data => {
+        //   console.log(data.ops[0]);
+          res.send(data.ops[0]);
+
+      })
+      .catch( err => console.log(err))
+  })
+
+  app.get('/all-projects', (req, res) =>{
+      projectCollection.find({})
+      .toArray((err, documents) =>{
+        //   console.log(documents);
+          res.send(documents);
+      })
+  })
+
+  app.post("/update-project-status/:id", (req, res) => {
+      const id = req.params.id;
+      const projectType = req.body.projectType;
+      projectCollection.updateOne({_id: ObjectId(id)}, {
+          $set: {projectType}
+      })
+      .then( result => {
+        //   console.log(result.modifiedCount);
+          res.send(result);
+      })
+  })
+
+  app.get('/delete-project/:id', (req, res) => {
+      const id = req.params.id;
+      projectCollection.deleteOne({_id: ObjectId(id)})
+      .then(document => {
+          res.send(document);
+      })
+  })
 //   client.close();
 });
 
